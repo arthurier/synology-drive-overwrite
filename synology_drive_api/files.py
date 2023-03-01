@@ -125,7 +125,7 @@ class FilesMixin:
         api_name = 'SYNO.SynologyDrive.Files'
         endpoint = 'entry.cgi'
         params = {'api': api_name, 'method': 'upload', 'version': 2, 'path': display_path,
-                  'type': 'file', 'conflict_action': 'version'}
+                  'type': 'file', 'conflict_action': 'version', 'overwrite': 'true'}
         files = {'file': file}
         upload_ret = self.session.http_post(endpoint, params=params, files=files)
         return upload_ret
@@ -169,7 +169,7 @@ class FilesMixin:
         file_id = ret['data']['file_id']
         api_name = 'SYNO.SynologyDrive.Files'
         endpoint = 'entry.cgi'
-        data = {'api': api_name, 'method': 'convert_office', 'version': 2, 'conflict_action': 'autorename',
+        data = {'api': api_name, 'method': 'convert_office', 'version': 2, 'conflict_action': 'version',
                 'files': f"[\42id:{file_id}\42]"}
         urlencoded_data = form_urlencoded(data)
         ret = self.session.http_post(endpoint, data=urlencoded_data)
